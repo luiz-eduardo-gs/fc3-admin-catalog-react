@@ -1,12 +1,12 @@
 import { Box, Button, IconButton, Typography } from '@mui/material';
 import { useAppSelector } from '../../app/hooks';
-import { selectCategory } from './categorySlice';
+import { selectCategories } from './categorySlice';
 import { Link } from 'react-router-dom';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { DataGrid, GridColDef, GridRenderCellParams, GridRowsProp, GridToolbar } from '@mui/x-data-grid';
 
 export const ListCategory = () => {
-  const categories = useAppSelector(selectCategory);
+  const categories = useAppSelector(selectCategories);
 
   const slotProps = {
     toolbar: {

@@ -23,22 +23,37 @@ const category: Category = {
 
 export const initialState = [
   category,
-  {...category, id: '33dffa97-6e91-45f1-86c1-8dfe5ce2c494', 'name': 'MediumBlue'},
-  {...category, id: '9b763906-c746-4935-bd5c-35b64465fd5a', 'name': 'SlateGray'},
-  {...category, id: '1b763906-c746-4935-bd5c-35544465fd5a', 'name': 'Banana'},
+  { ...category, id: '33dffa97-6e91-45f1-86c1-8dfe5ce2c494', 'name': 'MediumBlue' },
+  { ...category, id: '9b763906-c746-4935-bd5c-35b64465fd5a', 'name': 'SlateGray', 'is_active': false },
+  { ...category, id: '1b763906-c746-4935-bd5c-35544465fd5a', 'name': 'Banana', 'is_active': false },
 ];
 
 export const categorySlice = createSlice({
   name: 'categories',
   initialState,
   reducers: {
-    createCategory(state, action){},
-    updateCategory(state, action){},
-    deleteCategory(state, action){},
+    createCategory(state, action) { },
+    updateCategory(state, action) { },
+    deleteCategory(state, action) { },
   },
 });
 
-export const selectCategory = (state: RootState) => state.category;
+export const selectCategories = (state: RootState) => state.categories;
+export const selectCategoryById = (state: RootState, id: string) => {
+  const category = state.categories.find(category => category.id === id);
+
+  return (
+    category || {
+      id: '',
+      name: '',
+      description: '',
+      is_active: false,
+      created_at: '',
+      updated_at: '',
+      deleted_at: null,
+    }
+  );
+};
 
 export const { createCategory, updateCategory, deleteCategory } = categorySlice.actions;
 

@@ -1,9 +1,17 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Paper, Typography } from '@mui/material';
 
-export const CreateCategory = () => (
-  <Box>
-    <Typography variant='h3' component='h1'>
-      CreateCategory
-    </Typography>
-  </Box>
-);
+export const CreateCategory = () => {
+  return (
+    <Box>
+      <Paper>
+        <Box p={2}>
+          <Box mb={2}>
+            <Typography variant='h4'>
+              Create Category
+            </Typography>
+          </Box>
+        </Box>
+      </Paper>
+    </Box>
+  );
+};
