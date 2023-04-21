@@ -3,13 +3,12 @@ import { useAppSelector } from '../../app/hooks';
 import { selectCategory } from './categorySlice';
 import { Link } from 'react-router-dom';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { DataGrid, GridColDef, GridRenderCellParams, GridRowsProp } from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridRenderCellParams, GridRowsProp, GridToolbar } from '@mui/x-data-grid';
 
 export const ListCategory = () => {
   const categories = useAppSelector(selectCategory);
 
   const columns: GridColDef[] = [
-    // { field: 'id', headerName: 'ID' },
     {
       field: 'name',
       headerName: 'Name',
@@ -82,7 +81,21 @@ export const ListCategory = () => {
         </Button>
       </Box>
       <Box sx={{ height: 400, width: '100%' }}>
-        <DataGrid rows={rows} columns={columns} />
+        <DataGrid 
+          rows={rows}
+          columns={columns}
+          disableColumnFilter
+          disableColumnSelector
+          disableDensitySelector
+          disableRowSelectionOnClick
+          slots={{ toolbar: GridToolbar }}
+          slotProps={{
+            toolbar: {
+              showQuickFilter: true,
+              quickFilterProps: { debounceMs: 500 },
+            },
+          }}
+        />
       </Box>
     </Box>
   );
