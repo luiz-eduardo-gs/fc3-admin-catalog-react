@@ -8,11 +8,19 @@ import { DataGrid, GridColDef, GridRenderCellParams, GridRowsProp, GridToolbar }
 export const ListCategory = () => {
   const categories = useAppSelector(selectCategory);
 
+  const slotProps = {
+    toolbar: {
+      showQuickFilter: true,
+      quickFilterProps: { debounceMs: 500 },
+    },
+  };
+
   const columns: GridColDef[] = [
     {
       field: 'name',
       headerName: 'Name',
       flex: 1,
+      renderCell: renderNameCell,
     },
     {
       field: 'description',
@@ -24,7 +32,7 @@ export const ListCategory = () => {
       headerName: 'Active',
       flex: 1,
       type: 'boolean',
-      renderCell: renderIsActiveCell
+      renderCell: renderIsActiveCell,
     },
     {
       field: 'created_at',
@@ -35,7 +43,7 @@ export const ListCategory = () => {
       field: 'actions',
       headerName: 'Actions',
       flex: 1,
-      renderCell: renderActionsCell
+      renderCell: renderActionsCell,
     },
   ];
 
@@ -46,6 +54,17 @@ export const ListCategory = () => {
     is_active: category.is_active,
     created_at: new Date(category.created_at).toLocaleDateString('pt-BR'),
   }));
+
+  function renderNameCell(params: GridRenderCellParams) {
+    return (
+      <Link
+        style={{ textDecoration: 'none' }}
+        to={`/categories/${params.id}/edit`}
+      >
+        <Typography color="primary">{params.value}</Typography>
+      </Link>
+    );
+  }
 
   function renderActionsCell(params: GridRenderCellParams) {
     return (
@@ -80,8 +99,8 @@ export const ListCategory = () => {
           New Category
         </Button>
       </Box>
-      <Box sx={{ height: 400, width: '100%' }}>
-        <DataGrid 
+      <Box sx={{ display: 'flex', height: 600 }}>
+        <DataGrid
           rows={rows}
           columns={columns}
           disableColumnFilter
@@ -89,12 +108,8 @@ export const ListCategory = () => {
           disableDensitySelector
           disableRowSelectionOnClick
           slots={{ toolbar: GridToolbar }}
-          slotProps={{
-            toolbar: {
-              showQuickFilter: true,
-              quickFilterProps: { debounceMs: 500 },
-            },
-          }}
+          slotProps={slotProps}
+          pageSizeOptions={[2, 20, 50, 100]}
         />
       </Box>
     </Box>
