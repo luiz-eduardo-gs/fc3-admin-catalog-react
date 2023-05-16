@@ -33,7 +33,10 @@ export const categorySlice = createSlice({
   initialState,
   reducers: {
     createCategory(state, action) { },
-    updateCategory(state, action) { },
+    updateCategory(state, action) {
+      const index = state.findIndex(category => category.id === action.payload.id);
+      state[index] = action.payload;
+    },
     deleteCategory(state, action) { },
   },
 });

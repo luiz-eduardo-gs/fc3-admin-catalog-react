@@ -23,7 +23,7 @@ export const CategoryForm = ({
 
   return (
     <Box p={2}>
-      <form>
+      <form onSubmit={onSubmit}>
         <Grid container spacing={3}>
           <Grid item xs={12}>
             <FormControl fullWidth>
